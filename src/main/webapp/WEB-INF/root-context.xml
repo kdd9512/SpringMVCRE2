@@ -12,6 +12,7 @@
 
     <mybatis-spring:scan base-package="org.kdd9512.mapper"/>
     <context:component-scan base-package="org.kdd9512.*"/>
+    <context:component-scan base-package="org.kdd9512.service"/>
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <!-- log4jdbc 를 이용하는 경우 이하와 같이 작성. -->

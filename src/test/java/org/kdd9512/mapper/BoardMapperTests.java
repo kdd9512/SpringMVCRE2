@@ -37,7 +37,7 @@ public class BoardMapperTests {
     }
 
     @Test
-    public void testInsertSelectKey(){
+    public void testInsertSelectKey() {
         BoardVO board = new BoardVO();
 
         board.setTitle("새글 select key");
@@ -46,6 +46,34 @@ public class BoardMapperTests {
 
         mapper.insertSelectKey(board);
         log.info(board);
+
+    }
+
+    @Test
+    public void testRead() {
+        BoardVO board = mapper.read(5L);
+
+        log.info(board);
+
+    }
+
+    @Test
+    public void testDelete() {
+        log.info(("DELETE CNT : " + mapper.delete(11L)));
+    }
+
+    @Test
+    public void testUpdate(){
+
+        BoardVO board = new BoardVO();
+
+        board.setBno(5L);
+        board.setTitle("수정제목");
+        board.setContent("수정내용");
+        board.setWriter("수정된작가");
+
+        int cnt = mapper.update(board);
+        log.info("UPDATE CNT : " + cnt);
 
     }
 

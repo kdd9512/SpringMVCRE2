@@ -14,4 +14,10 @@ public interface BoardMapper {
 
     public void insertSelectKey(BoardVO board);
 
+    public BoardVO read(Long bno); // bno 를 param 으로 받아 컬럼의 정보를 읽고 그 정보는 VO 에 담는다.
+
+    public int delete(Long bno); // 정상적으로 삭제되면 1을 출력.
+
+    public int update(BoardVO board); // 정상적으로 갱신되었다면 1을 출력할 것.
+
 }
