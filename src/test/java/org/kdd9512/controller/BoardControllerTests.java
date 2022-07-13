@@ -33,7 +33,7 @@ public class BoardControllerTests {
     }
 
     @Test
-    public void testList() throws Exception {
+    public void testList() throws Exception { // try ~ catch 대신에 그냥 여기서 처리.
 
         log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
                 .andReturn()
@@ -43,15 +43,29 @@ public class BoardControllerTests {
     }
 
     @Test
-    public void testRegister() throws Exception {
+    public void testRegister() throws Exception { // try ~ catch 대신에 그냥 여기서 처리.
 
         String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
                 .param("title", "등록 테스트 제목")
                 .param("content", "등록 테스트 내용")
-                .param("writer", "등록 테스트 작가")
-        ).andReturn().getModelAndView().getViewName();
+                .param("writer", "등록 테스트 작가"))
+                .andReturn()
+                .getModelAndView()
+                .getViewName();
 
         log.info("RESULT PAGE : [ " + resultPage + " ]");
+    }
+
+    @Test
+    public void testGet() throws Exception {
+
+        log.info(mockMvc.perform(MockMvcRequestBuilders
+                .get("/board/get")
+                .param("bno", "2"))
+                .andReturn()
+                .getModelAndView()
+                .getModelMap());
+
     }
 
 
