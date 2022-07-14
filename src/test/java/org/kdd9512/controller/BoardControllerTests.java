@@ -68,5 +68,32 @@ public class BoardControllerTests {
 
     }
 
+    @Test
+    public void testModify() throws Exception {
+
+        String resultPage = mockMvc
+                .perform(MockMvcRequestBuilders.post("/board/modify")
+                .param("bno", "1")
+                .param("title", "수정한 테스트 글의 제목")
+                .param("content", "수정한 테스트 글의 내용")
+                .param("writer", "user123"))
+                .andReturn().getModelAndView().getViewName();
+
+        log.info("RESULT PAGE : [ " + resultPage + " ]");
+
+    }
+
+    @Test
+    public void testRemove() throws Exception {
+
+        String resultPage = mockMvc.perform(MockMvcRequestBuilders
+                .post("/board/remove")
+                .param("bno", "45"))
+                .andReturn().getModelAndView().getViewName();
+
+        log.info("RESULT PAGE (AFTER REMOVE): [ " + resultPage + " ]");
+
+    }
+
 
 }

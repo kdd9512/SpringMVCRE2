@@ -48,4 +48,30 @@ public class BoardController {
 
     }
 
+    // 글을 수정 / 삭제하기 위해서는 뭔가 양식을 보내야 하므로 PostMapping 이 필요.
+    @PostMapping("/modify")
+    public String modify(BoardVO board, RedirectAttributes attributes) {
+        log.info("this number will be modified : [ " + board + " ]");
+
+        if (service.modify(board)) {
+            attributes.addFlashAttribute("result", "success");
+        }
+
+        return "redirect:/board/list";
+    }
+
+    @PostMapping("/remove") // 작업 후 redirect 해야하므로 RedirectAttributes
+    public String remove(@RequestParam("bno") Long bno, RedirectAttributes attributes) {
+        log.info("this number will be removed : [ " + bno + " ]");
+
+        if (service.remove(bno)) {
+            attributes.addFlashAttribute("result", "success");
+        } else {
+            log.info("non exist number....");
+            attributes.addFlashAttribute("result", "fail");
+        }
+
+        return "redirect:/board/list";
+    }
+
 }
