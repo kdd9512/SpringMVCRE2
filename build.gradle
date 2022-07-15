@@ -76,6 +76,8 @@ dependencies {
     // taglibs-standard-impl
     runtimeOnly 'org.apache.taglibs:taglibs-standard-impl:1.2.5'
 
+    // tomcat
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.60'
 
 
 }
