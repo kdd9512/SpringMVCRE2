@@ -14,7 +14,11 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">BoardList Page</div>
+            <div class="panel-heading">
+                BoardList Page
+                <button id="regBtn" type="button" class="btn btn-xs pull-right">REGISTER NEW BOARD</button>
+            </div>
+
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="panel-body">
@@ -28,11 +32,12 @@
                             <th>수정일</th>
                         </tr>
                         </thead>
-                        <%-- 왜 c:forEach 안먹지... 코드상으로는 전혀 이상할 거 없는데?--%>
                         <c:forEach items="${list}" var="board">
                             <tr>
                                 <td><c:out value="${board.bno}"/></td>
-                                <td><c:out value="${board.title}"/></td>
+                                <td><a href="/board/get?bno=<c:out value="${board.bno}"/>">
+                                    <c:out value="${board.title}"/>
+                                </a></td>
                                 <td><c:out value="${board.writer}"/></td>
                                 <td><fmt:formatDate pattern="yyyy-MM-dd"
                                                     value="${board.regDate}"/></td>
@@ -93,8 +98,11 @@
             }
 
             $("#myModal").modal("show");
-
         }
+
+        $("#regBtn").on("click", function () {
+            self.location = "/board/register";
+        });
 
     });
 </script>
