@@ -87,7 +87,7 @@
 
         checkModal(result);
 
-        history.replaceState({},null,null);
+        history.replaceState({},null,null); // 뒤로가기를 했을 때 다시 생성결과를 알리는 모달창이 뜨는 것을 방지한다.
 
         function checkModal(result) {
 
