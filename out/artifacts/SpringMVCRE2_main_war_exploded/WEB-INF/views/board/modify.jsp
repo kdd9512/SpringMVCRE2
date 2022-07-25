@@ -56,7 +56,7 @@
                     </div>
 
                     <button type="submit" data-oper="modify" class="btn btn-default">Modify</button>
-                    <button type="submit" data-oper="remove" class="btn btn-danger">Clear</button>
+                    <button type="submit" data-oper="remove" class="btn btn-danger">DELETE</button>
                     <button type="submit" data-oper="list" class="btn btn-info">List</button>
 
                 </form>
@@ -76,13 +76,14 @@
             // data-oper 선택.
             let operation = $(this).data('oper');
 
-            console.log(operation);
+            console.log("operation : [ " + operation +" ]");
+
             // data-oper 의 값에 따라 기능을 실행한다.
             if (operation === 'remove') {
                 formObj.attr("action", "/board/remove");
-
             } else if (operation === 'list') {
-                self.location = '/board/list';
+                formObj.attr("action", "/board/list").attr("method", "GET"); // move to list
+                formObj.empty();
             }
 
             formObj.submit();
