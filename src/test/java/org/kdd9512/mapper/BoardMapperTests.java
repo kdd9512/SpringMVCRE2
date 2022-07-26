@@ -2,13 +2,17 @@ package org.kdd9512.mapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kdd9512.domain.BoardVO;
+import org.kdd9512.domain.Criteria;
 import org.kdd9512.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/root-context.xml")
@@ -75,6 +79,16 @@ public class BoardMapperTests {
 
         int cnt = mapper.update(board);
         log.info("UPDATE CNT : " + cnt);
+
+    }
+
+    @Test
+    public void testPaging() {
+
+        Criteria cri = new Criteria();
+
+        List<BoardVO> list = mapper.getListWithPaging(cri);
+        list.forEach(log::info);
 
     }
 
