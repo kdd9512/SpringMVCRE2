@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import org.kdd9512.domain.BoardVO;
+import org.kdd9512.domain.Criteria;
 import org.kdd9512.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,10 +47,18 @@ public class BoardServiceImpl implements BoardService {
         return mapper.delete(bno) == 1; // true / false 를 1과 0 으로 구분하므로
     }
 
-    @Override
-    public List<BoardVO> getList() {
+//    @Override
+//    public List<BoardVO> getList() {
+//
+//        log.info("===========================getList===========================");
+//        return mapper.getList();
+//    }
 
-        log.info("===========================getList===========================");
-        return mapper.getList();
+    @Override
+    public List<BoardVO> getList(Criteria cri) {
+
+        log.info("==========================getList with Criteria [ " + cri + " ]============================");
+        return mapper.getListWithPaging(cri);
     }
+
 }

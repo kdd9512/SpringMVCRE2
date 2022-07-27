@@ -11,6 +11,8 @@ import org.kdd9512.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class BoardMapperTests {
 
     @Setter(onMethod_ = @Autowired)
     private BoardMapper mapper;
+
+    private MockMvc mockMvc;
 
     @Test
     public void testGetList() {
@@ -86,9 +90,13 @@ public class BoardMapperTests {
     public void testPaging() {
 
         Criteria cri = new Criteria();
+        // 10개씩 3페이지.
+        cri.setPageNum(3);
+        cri.setAmount(10);
 
         List<BoardVO> list = mapper.getListWithPaging(cri);
-        list.forEach(log::info);
+        // list.forEach(board -> log.info(board.getBno()));
+        list.forEach(board -> log.info(board.getBno()));
 
     }
 

@@ -3,6 +3,7 @@ package org.kdd9512.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.kdd9512.domain.BoardVO;
+import org.kdd9512.domain.Criteria;
 import org.kdd9512.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +21,18 @@ public class BoardController {
 
     private final BoardService service;
 
-    @GetMapping("/list")
-    public void list(Model model) {
-        log.info("list==================================");
+//    @GetMapping("/list")
+//    public void list(Model model) {
+//        log.info("list==================================");
+//
+//        model.addAttribute("list", service.getList());
+//    }
 
-        model.addAttribute("list", service.getList());
+    @GetMapping("/list")
+    public void list(Criteria cri, Model model) {
+        log.info("list =============[ " + cri +  " ]================");
+
+        model.addAttribute("list", service.getList(cri));
     }
 
     @GetMapping("/register")

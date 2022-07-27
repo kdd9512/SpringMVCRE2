@@ -2,12 +2,17 @@ package org.kdd9512.service;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kdd9512.domain.BoardVO;
+import org.kdd9512.domain.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -46,8 +51,8 @@ public class BoardServiceTests {
     @Test
     public void testGetList() {
 
-        service.getList().forEach(log::info);
-
+//        service.getList().forEach(log::info);
+        service.getList(new Criteria(2,10)).forEach(log::info);
     }
 
     @Test
