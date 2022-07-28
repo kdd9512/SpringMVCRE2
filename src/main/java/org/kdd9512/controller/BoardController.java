@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.kdd9512.domain.BoardVO;
 import org.kdd9512.domain.Criteria;
+import org.kdd9512.domain.PageDTO;
 import org.kdd9512.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class BoardController {
         log.info("list =============[ " + cri +  " ]================");
 
         model.addAttribute("list", service.getList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri, 123));
     }
 
     @GetMapping("/register")
