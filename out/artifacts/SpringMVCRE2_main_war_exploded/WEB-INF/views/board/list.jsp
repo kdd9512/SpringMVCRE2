@@ -35,9 +35,10 @@
                         <c:forEach items="${list}" var="board">
                             <tr>
                                 <td><c:out value="${board.bno}"/></td>
-                                <td><a href="/board/get?bno=<c:out value="${board.bno}"/>">
-                                    <c:out value="${board.title}"/>
-                                </a></td>
+                                <td>
+                                    <a class="move" href="<c:out value="${board.bno}"/>">
+                                    <c:out value="${board.title}"/></a>
+                                </td>
                                 <td><c:out value="${board.writer}"/></td>
                                 <td><fmt:formatDate pattern="yyyy-MM-dd"
                                                     value="${board.regDate}"/></td>
@@ -52,25 +53,33 @@
 
                             <c:if test="${pageMaker.prev}">
                                 <li class="paginate_button previous">
-                                    <a href="#">Previous</a>
+                                    <a href="${pageMaker.startPage - 1}">Previous</a>
                                 </li>
                             </c:if>
 
-                            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                                <li class="paginate_button">
-                                    <a href="#">${num}</a>
+                            <c:forEach var="num"
+                                       begin="${pageMaker.startPage}"
+                                       end="${pageMaker.endPage}">
+                                <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active" : ""}">
+                                    <a href="${num}">${num}</a>
                                 </li>
                             </c:forEach>
 
                             <c:if test="${pageMaker.next}">
                                 <li class="paginate_button next">
-                                    <a href="#">Next</a>
+                                    <a href="${pageMaker.endPage + 1}">Next</a>
                                 </li>
                             </c:if>
+
                         </ul>
                     </div>
                     <%-- pagination end --%>
-                <%-- modal --%>
+                    <form id="actionForm" action="/board/list" method="get">
+                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                    </form>
+
+                    <%-- modal --%>
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
                          aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -107,6 +116,7 @@
 <script type="text/javascript">
     <%-- 도배방지용 모달창에서 사용할 script --%>
     $(document).ready(function () {
+
         let result = '<c:out value="${result}"/>';
 
         checkModal(result);
@@ -129,6 +139,33 @@
         $("#regBtn").on("click", function () {
             self.location = "/board/register";
         });
+
+        let actionForm = $("#actionForm");
+
+        // paginate_button 클래스의 a태그
+        $(".paginate_button a").on("click", function (e) {
+
+            e.preventDefault();
+
+            console.log("click");
+
+            actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+            actionForm.submit();
+
+        });
+
+        $(".move").on("click", function (e) {
+
+            e.preventDefault();
+            // 이하의 input 태그를 추가로 전송한다. .attr() 로 요소의 값을 추출하고. .append() 로 선택요소의 마지막에 추가한다.
+            // this(=a태그)의 href 에 적힌 주소에는 value 로 bno 가 담겨있으므로 href 값을 가져오면 해결.
+            actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") +"'>")
+            // 위에서 가져온 bno 값을 기준으로 /board/get 을 요청한다.
+            actionForm.attr("action", "/board/get");
+            // 위 2개 를 submit
+            actionForm.submit();
+
+        })
 
     });
 </script>

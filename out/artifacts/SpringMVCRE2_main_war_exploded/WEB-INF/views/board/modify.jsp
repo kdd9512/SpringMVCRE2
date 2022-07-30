@@ -19,6 +19,9 @@
 
                 <form role="form" action="/board/modify" method="post">
 
+                    <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/>">
+                    <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/>">
+
                     <div class="form-group">
                         <label>Bno</label>
                         <input class="form-control" name="bno" value="<c:out value="${board.bno}"/>"
@@ -76,16 +79,33 @@
             // data-oper 선택.
             let operation = $(this).data('oper');
 
-            console.log("operation : [ " + operation +" ]");
+            console.log("operation : [ " + operation + " ]");
+
 
             // data-oper 의 값에 따라 기능을 실행한다.
-            if (operation === 'remove') {
-                formObj.attr("action", "/board/remove");
-            } else if (operation === 'list') {
-                formObj.attr("action", "/board/list").attr("method", "GET"); // move to list
-                formObj.empty();
-            }
 
+            switch (operation) {
+                case 'modify': {
+                    formObj.attr("action", "/board/modify").submit();
+                    break;
+                }
+                case 'remove': {
+                    formObj.attr("action", "/board/remove");
+                    break;
+
+                }
+                case 'list': {
+                    formObj.attr("action", "/board/list").attr("method", "GET"); // move to list
+                    let pageNumTag = $("input[name=pageNum]").clone();
+                    let amountTag = $("input[name=amount]").clone();
+                    formObj.empty();
+
+                    formObj.append(pageNumTag);
+                    formObj.append(amountTag);
+                    break;
+                }
+
+            }
             formObj.submit();
 
         });

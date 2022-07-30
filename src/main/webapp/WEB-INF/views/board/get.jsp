@@ -47,6 +47,9 @@
 
                 <form id="operForm" action="/board/modify" method="get">
                     <input type="hidden" id="bno" name="bno" value="<c:out value="${board.bno}"/>"/>
+                    <%-- 전송된 Criteria 의 값을 받아 보관하고, 타 페이지로 전송한다. --%>
+                    <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/>"/>
+                    <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/>"/>
                 </form>
 
             </div>

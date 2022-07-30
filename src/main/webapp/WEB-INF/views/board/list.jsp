@@ -35,9 +35,10 @@
                         <c:forEach items="${list}" var="board">
                             <tr>
                                 <td><c:out value="${board.bno}"/></td>
-                                <td><a href="/board/get?bno=<c:out value="${board.bno}"/>">
-                                    <c:out value="${board.title}"/>
-                                </a></td>
+                                <td>
+                                    <a class="move" href="<c:out value="${board.bno}"/>">
+                                    <c:out value="${board.title}"/></a>
+                                </td>
                                 <td><c:out value="${board.writer}"/></td>
                                 <td><fmt:formatDate pattern="yyyy-MM-dd"
                                                     value="${board.regDate}"/></td>
@@ -141,7 +142,8 @@
 
         let actionForm = $("#actionForm");
 
-        $(".paginate_button").on("click", function (e) {
+        // paginate_button 클래스의 a태그
+        $(".paginate_button a").on("click", function (e) {
 
             e.preventDefault();
 
@@ -151,6 +153,19 @@
             actionForm.submit();
 
         });
+
+        $(".move").on("click", function (e) {
+
+            e.preventDefault();
+            // 이하의 input 태그를 추가로 전송한다. .attr() 로 요소의 값을 추출하고. .append() 로 선택요소의 마지막에 추가한다.
+            // this(=a태그)의 href 에 적힌 주소에는 value 로 bno 가 담겨있으므로 href 값을 가져오면 해결.
+            actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") +"'>")
+            // 위에서 가져온 bno 값을 기준으로 /board/get 을 요청한다.
+            actionForm.attr("action", "/board/get");
+            // 위 2개 를 submit
+            actionForm.submit();
+
+        })
 
     });
 </script>

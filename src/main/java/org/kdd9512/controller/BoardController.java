@@ -8,10 +8,7 @@ import org.kdd9512.domain.PageDTO;
 import org.kdd9512.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -56,8 +53,8 @@ public class BoardController {
     }
 
     @GetMapping({"/get","/modify"})
-    public void get(@RequestParam("bno") Long bno, Model model) {
-
+    public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri,
+                    Model model) {
         log.info("================================/get or /modify========================================");
         model.addAttribute("board", service.get(bno));
 
@@ -65,26 +62,30 @@ public class BoardController {
 
     // 글을 수정 / 삭제하기 위해서는 뭔가 양식을 보내야 하므로 PostMapping 이 필요.
     @PostMapping("/modify")
-    public String modify(BoardVO board, RedirectAttributes attributes) {
-        log.info("this number will be modified : [ " + board + " ]");
+    public String modify(BoardVO board, RedirectAttributes attributes,
+                         @ModelAttribute("cri") Criteria cri) {
+        log.info("modified : [ " + board + " ]");
 
         if (service.modify(board)) {
             attributes.addFlashAttribute("result", "success");
         }
 
+        attributes.addAttribute("pageNum", cri.getPageNum());
+        attributes.addAttribute("amount", cri.getAmount());
+
         return "redirect:/board/list";
     }
 
     @PostMapping("/remove") // 작업 후 redirect 해야하므로 RedirectAttributes
-    public String remove(@RequestParam("bno") Long bno, RedirectAttributes attributes) {
-        log.info("this number will be removed : [ " + bno + " ]");
+    public String remove(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri,
+                         RedirectAttributes attributes) {
+        log.info("removed : [ " + bno + " ]");
 
         if (service.remove(bno)) {
             attributes.addFlashAttribute("result", "success");
-        } else {
-            log.info("non exist number....");
-            attributes.addFlashAttribute("result", "fail");
         }
+        attributes.addAttribute("pageNum", cri.getPageNum());
+        attributes.addAttribute("amount", cri.getAmount());
 
         return "redirect:/board/list";
     }
