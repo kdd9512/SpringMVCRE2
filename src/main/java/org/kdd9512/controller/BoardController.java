@@ -31,7 +31,12 @@ public class BoardController {
         log.info("list =============[ " + cri +  " ]================");
 
         model.addAttribute("list", service.getList(cri));
-        model.addAttribute("pageMaker", new PageDTO(cri, 123));
+//        model.addAttribute("pageMaker", new PageDTO(cri, 123)); 임시로 페이지 수 설정.
+
+        int total = service.getTotal(cri); // 총 페이지수를 구한다.
+        log.info("Total: " + total);
+
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
     }
 
     @GetMapping("/register")

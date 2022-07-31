@@ -95,8 +95,8 @@
                 }
                 case 'list': {
                     formObj.attr("action", "/board/list").attr("method", "GET"); // move to list
-                    let pageNumTag = $("input[name=pageNum]").clone();
-                    let amountTag = $("input[name=amount]").clone();
+                    let pageNumTag = $("input[name='pageNum']").clone();
+                        let amountTag = $("input[name='amount']").clone();
                     formObj.empty();
 
                     formObj.append(pageNumTag);

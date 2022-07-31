@@ -23,4 +23,6 @@ public interface BoardMapper {
 
     public int update(BoardVO board); // 정상적으로 갱신되었다면 1을 출력할 것.
 
+    public int getTotalCount(Criteria cri); // 전체 데이터의 개수처리.
+
 }
