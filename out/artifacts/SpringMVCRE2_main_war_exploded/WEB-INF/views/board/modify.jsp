@@ -48,13 +48,13 @@
 
                     <div class="form-group">
                         <label>RegDate</label>
-                        <input class="form-control" name="regDate" pattern="yyyy/MM/dd"
+                        <input class="form-control" name="regdate" pattern="yyyy/MM/dd"
                                value="<fmt:formatDate value="${board.regDate}"/>" readonly="readonly">
                     </div>
 
                     <div class="form-group">
                         <label>Update Date</label>
-                        <input class="form-control" name="updateDate" pattern="yyyy/MM/dd"
+                        <input class="form-control" name="updatedate" pattern="yyyy/MM/dd"
                                value="<fmt:formatDate value="${board.updateDate}"/>" readonly="readonly">
                     </div>
 
@@ -83,7 +83,6 @@
 
 
             // data-oper 의 값에 따라 기능을 실행한다.
-
             switch (operation) {
                 case 'modify': {
                     formObj.attr("action", "/board/modify").submit();
@@ -96,8 +95,8 @@
                 }
                 case 'list': {
                     formObj.attr("action", "/board/list").attr("method", "GET"); // move to list
-                    let pageNumTag = $("input[name=pageNum]").clone();
-                    let amountTag = $("input[name=amount]").clone();
+                    let pageNumTag = $("input[name='pageNum']").clone();
+                        let amountTag = $("input[name='amount']").clone();
                     formObj.empty();
 
                     formObj.append(pageNumTag);

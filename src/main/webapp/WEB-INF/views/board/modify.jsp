@@ -48,13 +48,13 @@
 
                     <div class="form-group">
                         <label>RegDate</label>
-                        <input class="form-control" name="regDate" pattern="yyyy/MM/dd"
+                        <input class="form-control" name="regdate" pattern="yyyy/MM/dd"
                                value="<fmt:formatDate value="${board.regDate}"/>" readonly="readonly">
                     </div>
 
                     <div class="form-group">
                         <label>Update Date</label>
-                        <input class="form-control" name="updateDate" pattern="yyyy/MM/dd"
+                        <input class="form-control" name="updatedate" pattern="yyyy/MM/dd"
                                value="<fmt:formatDate value="${board.updateDate}"/>" readonly="readonly">
                     </div>
 
