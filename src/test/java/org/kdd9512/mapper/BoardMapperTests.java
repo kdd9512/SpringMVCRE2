@@ -24,8 +24,6 @@ public class BoardMapperTests {
     @Setter(onMethod_ = @Autowired)
     private BoardMapper mapper;
 
-    private MockMvc mockMvc;
-
     @Test
     public void testGetList() {
 
@@ -97,6 +95,20 @@ public class BoardMapperTests {
         List<BoardVO> list = mapper.getListWithPaging(cri);
         // list.forEach(board -> log.info(board.getBno()));
         list.forEach(board -> log.info(board.getBno()));
+
+    }
+
+    @Test
+    public void testSearch() {
+
+        Criteria cri = new Criteria();
+
+        cri.setKeyword("테스"); // 검색어.
+        cri.setType("TC"); // T : 타입, C : 내용, W: 작가.
+
+        List<BoardVO> list = mapper.getListWithPaging(cri);
+
+        list.forEach(log::info);
 
     }
 
