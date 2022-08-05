@@ -50,6 +50,9 @@
                     <%-- 전송된 Criteria 의 값을 받아 보관하고, 타 페이지로 전송한다. --%>
                     <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/>"/>
                     <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/>"/>
+                    <%-- 검색기준이 적용되어 결과를 낸 리스트 -> 조회페이지 -> 검색기준이 적용되어 결과를 낸 리스트  --%>
+                    <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>"/>
+                    <input type="hidden" name="type" value="<c:out value="${cri.type}"/>"/>
                 </form>
 
             </div>

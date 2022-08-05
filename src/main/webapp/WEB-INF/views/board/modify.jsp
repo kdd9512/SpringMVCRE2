@@ -21,6 +21,10 @@
 
                     <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/>">
                     <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/>">
+                    <%-- Criteria 에서 가져온 type / keyword 를 param 으로 추가.
+                        검색결과를 냈던 list 로 되돌아가기 위함--%>
+                    <input type="hidden" name="keyword" value="<c:out value="${cri.keyword}"/>">
+                    <input type="hidden" name="type" value="<c:out value="${cri.type}"/>">
 
                     <div class="form-group">
                         <label>Bno</label>
@@ -86,21 +90,29 @@
             switch (operation) {
                 case 'modify': {
                     formObj.attr("action", "/board/modify").submit();
+
                     break;
                 }
                 case 'remove': {
                     formObj.attr("action", "/board/remove");
-                    break;
 
+                    break;
                 }
                 case 'list': {
                     formObj.attr("action", "/board/list").attr("method", "GET"); // move to list
-                    let pageNumTag = $("input[name='pageNum']").clone();
-                        let amountTag = $("input[name='amount']").clone();
-                    formObj.empty();
 
+                    let pageNumTag = $("input[name='pageNum']").clone();
+                    let amountTag = $("input[name='amount']").clone();
+                    let keywordTag = $("input[name='keyword']").clone();
+                    let typeTag = $("input[name='type']").clone();
+                    // Criteria 에서 넘어온 param 인 keyword 와 type 을 추가한다.
+                    // 이 param 을 이용하여 검색결과가 나왔었던 list 로 돌아갈 수 있음.
+                    formObj.empty();
                     formObj.append(pageNumTag);
                     formObj.append(amountTag);
+                    formObj.append(keywordTag);
+                    formObj.append(typeTag);
+
                     break;
                 }
 
