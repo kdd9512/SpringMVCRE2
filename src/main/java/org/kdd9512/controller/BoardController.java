@@ -68,31 +68,36 @@ public class BoardController {
     // 글을 수정 / 삭제하기 위해서는 뭔가 양식을 보내야 하므로 PostMapping 이 필요.
     @PostMapping("/modify")
     public String modify(BoardVO board, RedirectAttributes attributes,
-                         @ModelAttribute("cri") Criteria cri) {
+                         Criteria cri) {
+        // 더 이상 ModelAttribute 에 담아 param 을 전달할 필요가 없다. 해당 기능은 getListLink(); 가 대신함.
+//                         @ModelAttribute("cri") Criteria cri) {
         log.info("modified : [ " + board + " ]");
 
         if (service.modify(board)) {
             attributes.addFlashAttribute("result", "success");
         }
+//          getListLink(); 가 이를 대신 수행한다.
+//        attributes.addAttribute("pageNum", cri.getPageNum());
+//        attributes.addAttribute("amount", cri.getAmount());
 
-        attributes.addAttribute("pageNum", cri.getPageNum());
-        attributes.addAttribute("amount", cri.getAmount());
-
-        return "redirect:/board/list";
+        return "redirect:/board/list" + cri.getListLink();
     }
 
     @PostMapping("/remove") // 작업 후 redirect 해야하므로 RedirectAttributes
-    public String remove(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri,
-                         RedirectAttributes attributes) {
+    public String remove(@RequestParam("bno") Long bno,RedirectAttributes attributes,
+                         Criteria cri) {
+        // 더 이상 ModelAttribute 에 담아 param 을 전달할 필요가 없다. 해당 기능은 getListLink(); 가 대신함.
+//                         @ModelAttribute("cri") Criteria cri) {
         log.info("removed : [ " + bno + " ]");
 
         if (service.remove(bno)) {
             attributes.addFlashAttribute("result", "success");
         }
-        attributes.addAttribute("pageNum", cri.getPageNum());
-        attributes.addAttribute("amount", cri.getAmount());
+        //          getListLink(); 가 이를 대신 수행한다.
+//        attributes.addAttribute("pageNum", cri.getPageNum());
+//        attributes.addAttribute("amount", cri.getAmount());
 
-        return "redirect:/board/list";
+        return "redirect:/board/list" + cri.getListLink();
     }
 
 }
